@@ -21,7 +21,16 @@ $(document).ready(function() {
       var tempKelvin = response.main.temp;
       var tempCelsius = ourWeather.kelvinToCelsius(tempKelvin);
       var tempFahrenheit = ourWeather.celsiusToFahrenheit(tempCelsius);
-      $('.showWeather').text("The temperature in " + city + " is " + tempFahrenheit + " degrees Fahrenheit");
+      var selectedTemp = 1;
+      if ($("#temp-selector").val() === "celsius"){
+        selectedTemp = tempCelsius;
+      } else if ($("#temp-selector").val() === "fahrenheit") {
+        selectedTemp = tempFahrenheit;
+      } else {
+        selectedTemp = tempKelvin;
+      }
+
+      $('.showWeather').text("The temperature in " + city + " is " + selectedTemp + " degrees " + $("#temp-selector").val());
     }).fail(function(error) {
       $('.showWeather').text(error.responseJSON.message);
    });
